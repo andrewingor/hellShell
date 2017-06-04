@@ -14,23 +14,21 @@ class bell: public exception {
     public:
     int result;
     virtual const char* what() const throw()
-    { return "Hell shit happend"; }
+    { return "Hell bullshit happend"; }
 };
 /*
  *
  *
 */
 class shell {
-
      public:
-     
-     shell (void) {
+     shell () {
          cout   << "-=<The_$hell_from_the_Hell>=-" << endl
                 << "Type '?' for help" << endl;
      }
      ~shell (void) {}
      string& version (void) {
-         static string v("0.0.1");
+         static string v("$Id$");
          return v;
      }
  };

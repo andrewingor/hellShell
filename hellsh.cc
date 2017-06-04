@@ -2,17 +2,18 @@
 #define Win64
 
 #include <iostream>
-#include "hellsh"
+#include "hells.h"
 
 using namespace std;
 using namespace hell;
+
+static string revision("$Id$");
 
 int main (int argc, char** argv)
 {
 try {
     // args (argc, argv);
     shell Hell;
-    cout << Hell.version() << endl;
     return 0;
 } catch (bell& he11) {
     cout << he11.what() << endl;
