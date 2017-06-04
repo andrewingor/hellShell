@@ -7,14 +7,21 @@
 using namespace std;
 using namespace hell;
 
-static string revision("$Id$");
+static const string revision("$Id$");
 
 int main (int argc, char** argv)
 {
 try {
     // args (argc, argv);
-    shell Hell;
-    return 0;
+    cout   << "The $hell from Hell " << revision << endl << "Type '?' for help" << endl;
+    shell<string> Hell; //(ip,port)
+    string input;
+    while (cin >> input) {
+        //preprocessing
+        cout << Hell << input << flush;     
+    }
+  return 0;
+//    
 } catch (bell& he11) {
     cout << he11.what() << endl;
     return he11.result;

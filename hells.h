@@ -15,22 +15,19 @@ class bell: public exception {
     int result;
     virtual const char* what() const throw()
     { return "Hell bullshit happend"; }
-};
+};//class bell
 /*
  *
  *
 */
-class shell {
+template<
+      class CharT
+    , class Traits = char_traits<CharT>
+>
+class shell: public basic_iostream<CharT, Traits> {
      public:
-     shell () {
-         cout   << "-=<The_$hell_from_the_Hell>=-" << endl
-                << "Type '?' for help" << endl;
-     }
+     shell (void) {}
      ~shell (void) {}
-     string& version (void) {
-         static string v("$Id$");
-         return v;
-     }
- };
+ };//class shell
  } //namespace hell
 #endif

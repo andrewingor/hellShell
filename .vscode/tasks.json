@@ -4,6 +4,6 @@
     "version": "0.1.0",
     "command": "c++",
     "isShellCommand": true,
-    "args": ["-g", "hellsh.cc", "-o", "hellsh.exe"],
+    "args": ["-g", "hellsh.cc", "-o", "1.exe"],
     "showOutput": "always"
 }
