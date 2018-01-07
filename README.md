@@ -1,1 +1,2 @@
-# hellShell UNDER CONSTRUCT, wait just a moment
+WELCOME
+UNDER CONSTRUCT, wait please

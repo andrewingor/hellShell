@@ -1,2 +1,3 @@
-*.cc ident 
 *.h ident 
+*.cc ident 
+*.go ident 

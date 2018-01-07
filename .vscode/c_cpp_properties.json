@@ -11,11 +11,17 @@
             "browse": {
                 "path": [
                     "/usr/include",
-                    "/usr/local/include"
+                    "/usr/local/include",
+                    "${workspaceRoot}"
                 ],
                 "limitSymbolsToIncludedHeaders": true,
                 "databaseFilename": ""
-            }
+            },
+            "intelliSenseMode": "clang-x64",
+            "macFrameworkPath": [
+                "/System/Library/Frameworks",
+                "/Library/Frameworks"
+            ]
         },
         {
             "name": "Linux",
@@ -28,11 +34,13 @@
             "browse": {
                 "path": [
                     "/usr/include",
-                    "/usr/local/include"
+                    "/usr/local/include",
+                    "${workspaceRoot}"
                 ],
                 "limitSymbolsToIncludedHeaders": true,
                 "databaseFilename": ""
-            }
+            },
+            "intelliSenseMode": "clang-x64"
         },
         {
             "name": "Win32",
@@ -44,26 +52,33 @@
                 "UNICODE"
             ],
             "browse": {
-                "path": [],
+                "path": [
+                    "${workspaceRoot}"
+                ],
                 "limitSymbolsToIncludedHeaders": true,
                 "databaseFilename": ""
-            }
+            },
+            "intelliSenseMode": "msvc-x64"
         },
         {
             "name": "Win64",
             "includePath": [
-                  "${workspaceRoot}"
-                , "C:/Users/USER4/win-builds/include/c++/4.8.3"
+                "${workspaceRoot}",
+                "C:/Users/USER4/win-builds/include/c++/4.8.3"
             ],
             "defines": [
                 "_DEBUG",
                 "UNICODE"
             ],
             "browse": {
-                "path": [],
+                "path": [
+                    "${workspaceRoot}"
+                ],
                 "limitSymbolsToIncludedHeaders": true,
                 "databaseFilename": ""
-            }
+            },
+            "intelliSenseMode": "msvc-x64"
         }
-    ]
+    ],
+    "version": 3
 }
