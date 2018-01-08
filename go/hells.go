@@ -1,60 +1,96 @@
 //
+/*
+HellShell is http server for run shell and file transfer
+Run hells and open at browser port 1666 http://localhost:1666
+
+UNDER CONSTRUCT
+
+Usage
+		hells[.exe] [ip][:port] [path/to/workspace]
+*/
 package main
 
 import (
+	"fmt"
 	"net/http"
+	"os/exec"
 	"io"
-	//"fmt"
-	//"os/exec"
 
 	//"github.com/andrewingor/hellShell/go"
 )
-//Revision
-const revision = "$Id$"
+
+const revision = "$Id$" // Revision ID
+var (
+	echo []byte//Output of command
+	err error		//Error
+)
 //
 func init () {
 //
 }
-// conclusion of contract
+// Conclusion of Contract
 func conclusion (
-		w http.ResponseWriter,
+		resp http.ResponseWriter,
 		req *http.Request	) {
 
-	io.WriteString( w, webmuzzle )
+	io.WriteString(resp, webmuzzle )
+
+    echo, err = exec.Command( "cmd", "/C", req.FormValue("cmd") ).Output()
+	if err != nil { 
+		fmt.Println (err)
+		io.WriteString(resp, err.Error() )
+	}
+	io.WriteString(resp, string(echo) ) 
+
+	io.WriteString(resp, "<hr>" + req.FormValue("cmd"))
+	io.WriteString(resp, "</body></html>")
 }
-// Hell server Run and Contracts conclusion
+//Hell Shell Run and Contracts conclusion
 func main() {
 	workdir := "."
 
 	http.HandleFunc ("/", conclusion )
-	//http.HandleFun("/put", filePut)
-	//http.HandleFun("/get", fileGet)
-
 	http.ListenAndServe(":1666", nil )
+
 	http.FileServer(http.Dir (workdir))
 }
 
+//Web-muzzle
 var webmuzzle string = `
 <!DOCTYPE html>
+
 <html>
 <head><title>Hell$hell</title></head>
 <style>
 body {
-	text-align: center;
+	text-align: left;
+	margin-left: 10%;
 	font-family: Consolas;
-	font-size: 20pt
+	font-size: 14pt;
 }
-.center {
+input {
+	font-family: Consolas;
+	font-size: 16pt;
+}
+.cmd {
+	width: 70%;
+	font-family: Consolas;
+	font-size: 14pt;
+}
+.middle {
+	vertical-align: middle;
 	height: 7em;
-	line-height: height
+	line-height: 7em;
 }
 </style>
 <body>
-<form class="center">
-<input type="text" name="args" value="cmd.exe wait arguments here" />
-<input type="submit" value="Run" /><br/>
-</form>
-</body>
-</html>
+<div class="middle">
+	<form id="cmdstr">
+cmd.exe&gt;<input class="cmd" type="text" name="cmd" value="" autofocus />
+		<input type="submit" value="Enter" /><br/>
+	</form>
+</div>
+<script type="text/javascript">document.cmdstr.cmd.focus();</script>
+<hr/>
 `
 //EOF
