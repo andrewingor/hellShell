@@ -2,13 +2,13 @@
 //@(#)License: Devil's Contract
 /*
 HellShell is RA tools
-It is simple http server for run remote shell with file transfer option
-Run hells and open at browser port 1666: http://localhost:1666/
+It is simple http file server for run remote shell with file transfer option
+Run and open at browser http://localhost:1666/
 
 UNDER CONSTRUCT
 
 Usage
-		hells[.exe] [ip][:port] [path/to/workspace]
+		hellShell [ip][:port] [path/to/workspace]
 
 */
 
