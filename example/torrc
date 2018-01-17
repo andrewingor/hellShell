@@ -1,0 +1,3 @@
+ClientRejectInternalAddresses    0
+HiddenServiceDir	C:\Path\To\HiddenServiceDir
+HiddenServicePort	1666 127.0.0.1:1666
