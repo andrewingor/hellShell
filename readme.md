@@ -13,7 +13,7 @@ Or
 #UNDER CONSTRUCT
 
 Usage
->>>		hellShell \[ip\]\[:port\] \[path/to/workspace\]
+>>>		hellShell [ip][:port] [path/to/workspace]
 
 
 _Happy hacking_
