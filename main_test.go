@@ -1,6 +1,3 @@
-//@(#) Author: Andre Wingor (http://andr.ru)
-//@(#) License: https://github.com/andrewingor/hellShell/blob/master/LICENSE
-
 // Package main_test performs testing on main package
 package main_test
 

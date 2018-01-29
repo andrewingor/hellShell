@@ -1,16 +1,17 @@
-HellShell is http file server for remote admins
+The hell$hell is web file server for remote admins
 
-Run hellShell and open at browser http://localhost:1666
+By default serving at http://localhost:1666
 
-How to wrap it into onion look at example/torrc
+How to wrap it into onion look at the ./etc/
 
-Download [portable release at here](https://github.com/andrewingor/hellShell/releases "Releases of hellShell for win64") for win64
-
-Or
-
->go get github.com/andrewingor/hellShell
+Download releases [here](https://github.com/andrewingor/hellShell/releases "hell$hell's releases")
 
 #UNDER CONSTRUCT
+
+>I push backups of current work to github
+>Don't do it until the end of 
+>go get github.com/andrewingor/hellShell
+
 
 Usage
 >>>		hellShell [ip][:port] [path/to/workspace]
