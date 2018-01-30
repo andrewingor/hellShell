@@ -10,11 +10,12 @@ Download releases [here](https://github.com/andrewingor/hellShell/releases "hell
 
 >I push backups of current work to github
 >Don't do it until the end of 
+
 >go get github.com/andrewingor/hellShell
 
 
 Usage
->>>		hellShell [ip][:port] [path/to/workspace]
+>>>		hellShell [ip][:port] [Path/To/Workplace]
 
 
 _Happy hacking_

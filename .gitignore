@@ -3,3 +3,7 @@
 *.out
 *.app
 *.a
+
+# Vim bak
+*~
+*.swp
