@@ -172,10 +172,10 @@ cmd.exe&gt;<input class="cmd" type="text" name="cmd" value="$CMD$"/>
 var htmltail string = `
 <table class="promo">
 <tr weight="100%">
-<th><a target=_blank href="https://goo.gl">License</a></th>
-<th><a target=_blank href="https://github.com/andreingor/hellShell">Source</a></th>
+<th><a target=_blank href="https://goo.gl/gVxGpd">License</a></th>
+<th><a target=_blank href="https://github.com/andreingor/hellShell/">Source</a></th>
 <td>Revision $Id$</td>
-<th>&copy;2017-2018&nbsp;<a target=_blank href="https://goo.gl">Max&nbsp;Lance(R)</a></th>
+<th>&copy;2017-2018&nbsp;<a target=_blank href="https://goo.gl/CqgrAF">Max&nbsp;Lance(R)</a></th>
 </tr>
 </table>
 </body>
