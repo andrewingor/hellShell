@@ -1,13 +1,11 @@
-/*
-The hell$hell is lightweight web file server for remote admins
-Browsing and transfering files, execute command
-By default serving at http://localhost:1666/
-*/
+//The hell$hell is lightweight web file server for remote admins
+//Browsing and transfering files, execute remote command
+//By default serving at http://127.0.0.1:1666/
 
 package main
 
 import (
-	"fmt"
+	//"fmt"
 	"html"
 	"io"
 	"net/http"
@@ -15,25 +13,23 @@ import (
 	"os/exec"
 	"strings"
 )
-
-// Revision ID
+//TODO Git revision tag v2
 const Revision = "$Id$"
-
 var (
 	stdout           []byte   //Output of command
 	dirs, navi, href []string // Catalogs of Path
 	err              error    //Error
 )
-
 //myContract (HTTP response)
 func myContract(serv http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if 0 < strings.Index(r.URL.Path, "favicon.ico") {
-			//TODO return $ favicon.ico
+//2TODO return $ favicon.ico recode from base64
 			return
 		}
+		cmdstr := r.FormValue("cmd")
 		filename := r.URL.Path
-		if '/' != filename[len(filename)-1] {
+		if '/' != filename[len(filename)-1] && len(cmdstr) == 0 {
 			file, _ := os.Open(filename)
 			defer file.Close()
 			io.Copy(w, file) //Download file
@@ -59,33 +55,29 @@ func myContract(serv http.Handler) http.Handler {
 
 		if r.Method == "POST" { //Upload file
 			r.ParseMultipartForm(32 << 20)
-			if file, handler, err := r.FormFile("uploadfile"); err == nil {
-				defer file.Close()
-				f, err := os.OpenFile(r.URL.Path+handler.Filename, os.O_WRONLY|os.O_CREATE, 0666)
-				//TODO Message to webmuzzle
-				if err != nil { fmt.Println(err)
-				} else {
-					defer f.Close()
-					io.Copy(f, file)
-				}
-			} else {
-				fmt.Println(err)
-			}
+			if upfile, handler, err := r.FormFile("uploadfile"); err == nil {
+				defer upfile.Close()
+				if saveto, err := os.OpenFile(r.URL.Path+handler.Filename, os.O_WRONLY|os.O_CREATE, 0666); err == nil {
+					defer saveto.Close()
+					io.Copy(saveto, upfile)
+				} //else
+//TODO Error message panel to webmuzzle
+			} 
 		}
 
-		cmdstr := r.FormValue("cmd")
 		htmlCmdForm := strings.Replace(htmlform, "$CMD$", cmdstr, 1)
 		io.WriteString(w, htmlCmdForm) //Web muzzle
 
 		if 0 < len(cmdstr) {
 //TODO Set Timeout for exec or Kill button
-/*TODO Set Environment before execute
+//TODO Set Environment before execute 
+/*
 			cmd.Env = append(os.Environ(),
 			    "FOO=duplicate_value",
 			    "FOO=actual_value",
 			)
-			*/
-//TODO Escaped file name 
+*/
+//1TODO Escaped: Space Into Name Trouble
 			os.Chdir(r.URL.Path)
 			stdout, err = exec.Command("cmd", "/C", cmdstr).Output()
 			if err != nil {
@@ -106,21 +98,23 @@ func myContract(serv http.Handler) http.Handler {
 //hell$hell init
 func init() {
 	http.Handle("/", myContract(http.FileServer(http.Dir("/"))))
-	http.ListenAndServe(":1666", nil)
+	http.ListenAndServe("127.0.0.1:1666", nil)
 }
 
 //hell$hell run
 func main() {}
 
 //Web muzzle
-var htmltail string = "</body></html>"
 
-//TODO HTML CSS hackstyle
+//TODO HTML CSS to css
+//TODO HTML CSS List of Style into webmuzzle & save to .ini
 //TODO Auto setup meta codepage
 var htmlhead string = `
 <!DOCTYPE html>
 <html>
-<head><title>Hell$hell</title></head>
+<head><title>Hell$hell</title>
+<meta codepage="$CODEPAGE$"/>
+<meta =stylesheet content />
 <style>
 pre {
 	font-family: Consolas, Courier New
@@ -145,14 +139,20 @@ input {
 	height: 7em;
 	line-height: 7em;
 }
+.promo {
+	vertical-align: bottom;
+	weight: 100%;
+	font-family: Courier New;
+	font-size: 9pt;
+}
 </style>
+</head>
 <body>
 	<form enctype="multipart/form-data" action="" method="post">
  		<input type="file" name="uploadfile" />
  	   <input type="hidden" name="token" value="{{.}}"/>
  	  	 <input type="submit" value="upload" />
 	</form>
-	<hr/>
 `
 
 //TODO Set os.Environ to webmuzzle
@@ -164,6 +164,22 @@ cmd.exe&gt;<input class="cmd" type="text" name="cmd" value="$CMD$"/>
 <!--input class="env" type="textbox" name="env" value=""/-->
 	</form>
 </div>
+`
+
+//TODO Max Lince(R) site goo.glink
+//TODO License goo.glink
+//TODO table weight=100%
+var htmltail string = `
+<table class="promo">
+<tr weight="100%">
+<th><a target=_blank href="https://goo.gl">License</a></th>
+<th><a target=_blank href="https://github.com/andreingor/hellShell">Source</a></th>
+<td>Revision $Id$</td>
+<th>&copy;2017-2018&nbsp;<a target=_blank href="https://goo.gl">Max&nbsp;Lance(R)</a></th>
+</tr>
+</table>
+</body>
+</html>
 `
 
 //EOF
