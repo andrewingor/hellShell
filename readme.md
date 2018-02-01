@@ -1,4 +1,5 @@
 The hell$hell is web file server for remote admins
+Screenshot for example [https://andrewingor.github.io/hellShell/](https://andrewingor.github.io/hellShell/)
 
 By default serving at http://localhost:1666
 
@@ -13,6 +14,9 @@ Download releases [here](https://github.com/andrewingor/hellShell/releases "hell
 
 >go get github.com/andrewingor/hellShell
 
+You can see the plan in the main.go
+
+>grep TODO main.go | sort
 
 Usage
 >>>		hellShell [ip][:port] [Path/To/Workplace]
