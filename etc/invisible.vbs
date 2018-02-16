@@ -1,1 +1,0 @@
-CreateObject("WScript.Shell").Run("C:\Path\To\hell$hell.exe"),0,False
